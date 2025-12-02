@@ -27,29 +27,39 @@
             </div>
 
             <div class="w-full flex flex-col gap-4">
-                <!-- <textarea name="" id="" placeholder="Unicode Text" class="w-full p-2 border rounded text-black dark:bg-gray-800 dark:text-white dark-transition" rows="8" v-model="unicodeText"></textarea> -->
+              <div class="relative">
                 <textarea id="unicodeText" 
-                class="w-full p-2 border rounded text-black dark:bg-gray-800 dark:text-white dark-transition" 
+                class="w-full p-4 text-lg border rounded text-black dark:bg-gray-800 dark:text-white dark-transition" 
                 rows="8" 
                 v-model="unicodeText" 
-                @input="unicodeToBijoy" 
-                placeholder="Type Unicode text here..."></textarea>
-                <!-- <Controls /> -->
-                            <button class="btn btn-success btn-lg" id="btnToBijoy" type="button">TO BIJOY
-                            </button>
-                            <button class="btn btn-warning btn-lg" id="btnToUnicode" type="button">
-                                TO UNICODE
-                            </button>
-                            <button class="btn btn-danger btn-lg" id="btnClearAll" type="button">RESET
-                            </button>
-                <!-- <textarea @input="" name="" id="" placeholder="Bijoy Text" class="w-full p-2 border rounded text-black dark:bg-gray-800 dark:text-white dark-transition" rows="8" v-model="bijoyText"></textarea> -->
-                <textarea id="bijoyText" 
-                class="w-full p-2 border rounded text-black dark:bg-gray-800 dark:text-white dark-transition font-smj" 
-                rows="8" 
-                v-model="bijoyText" 
-                @input="bijoyToUnicode" 
-                placeholder="Type Bijoy text here..."></textarea>
-            </div>
+                placeholder="Type Unicode text here...">
+              </textarea>
+              <!-- @input="unicodeToBijoy"  -->
+                <PhClipboardText 
+                @click="copyUni" 
+                class="absolute top-1 right-1 cursor-pointer"
+                :class="{ 'text-indigo-500': copied }"
+                :size="26" />
+              </div>
+
+                <button @click="unicodeToBijoy">Uni to Bijoy</button>
+                <button @click="bijoyToUnicode">Bijoy to Uni</button>
+                
+                <div class="relative">
+                  <textarea id="bijoyText" 
+                  class="w-full p-4 text-xl border rounded text-black dark:bg-gray-800 dark:text-white dark-transition font-smj" 
+                  rows="8" 
+                  v-model="bijoyText" 
+                  placeholder="weRq †U·U..."></textarea>
+                  <!-- @input="bijoyToUnicode"  -->
+
+                  <PhClipboardText 
+                  @click="copyBijoy" 
+                  class="absolute top-1 right-1 cursor-pointer"
+                  :class="{ 'text-indigo-500': copied }"
+                  :size="26" />
+                </div>
+              </div>
         </div>
     </section>
 </template>
@@ -57,9 +67,11 @@
 <script setup>
 import { ref } from 'vue';
 import { ConvertToUnicode, ConvertToASCII } from '../md';
+import { PhClipboardText } from '@phosphor-icons/vue';
 
 const bijoyText = ref('');
 const unicodeText = ref('');
+const copied = ref(false);
 
 const bijoyToUnicode = () => {
   unicodeText.value = ConvertToUnicode(bijoyText.value);
@@ -73,4 +85,20 @@ const handleClear = () => {
   bijoyText.value = '';
   unicodeText.value = '';
 };
+
+const copyUni = () => {
+  navigator.clipboard.writeText(unicodeText.value);
+  copied.value = true;
+  setTimeout(() => {
+    copied.value = false;
+  }, 1000);
+}
+
+const copyBijoy = () => {
+  navigator.clipboard.writeText(bijoyText.value);
+  copied.value = true;
+  setTimeout(() => {
+    copied.value = false;
+  }, 1000);
+}
 </script>
