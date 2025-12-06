@@ -72,8 +72,7 @@
       <div class="w-full flex flex-col gap-4">
         <div class="relative">
           <textarea id="unicodeText"
-            class="w-full p-4 text-lg border border-gray-900 dark:border-gray-200 rounded text-black bg-white dark:bg-gray-800 dark:text-white dark-transition"
-            rows="8" v-model="unicodeText" @input="unicodeToBijoy"
+            class="w-full h-52 p-4 text-lg border border-gray-900 dark:border-gray-200 rounded text-black bg-white dark:bg-gray-800 dark:text-white dark-transition" v-model="unicodeText" @input="unicodeToBijoy"
             placeholder="ইউনিকোড কি-বোর্ডের লেখা এখানে পেস্ট করুন...">
             </textarea>
           <PhClipboardText @click="copyUni" class="absolute top-1 text-black dark:text-gray-300 right-1 cursor-pointer"
@@ -88,8 +87,7 @@
 
         <div class="relative">
           <textarea id="bijoyText"
-            class="w-full p-4 text-xl border border-gray-900 dark:border-gray-200 rounded text-black dark:bg-gray-800 dark:text-white dark-transition font-smj"
-            rows="8" v-model="bijoyText" @input="bijoyToUnicode"
+            class="w-full h-52 p-4 text-xl border border-gray-900 dark:border-gray-200 rounded text-black dark:bg-gray-800 dark:text-white dark-transition font-smj" v-model="bijoyText" @input="bijoyToUnicode"
             placeholder="বিজয় কি-বোর্ডের লেখা এখানে পেস্ট করুন..."></textarea>
 
           <PhClipboardText @click="copyBijoy" class="absolute top-1 text-black dark:text-gray-300 right-1 cursor-pointer"
